@@ -1,26 +1,32 @@
-# theme
-set -g theme_display_date no
+if status is-interactive
+    # theme
+    set -g theme_display_date no
 
-# aliases
-if type -q eza
-    alias ls "exa"
-    alias tree "exa --tree"
-end
-alias ll "ls -l"
-alias la "ll -A"
+    # aliases
+    if type -q eza
+        alias ls "exa"
+        alias tree "exa --tree"
+    end
+    alias ll "ls -l"
+    alias la "ll -A"
 
-if type -q xclip
-    alias toclip "xclip -selection c"
-    alias fromclip "xclip -selection clipboard -o"
-end
+    if type -q xclip
+        alias toclip "xclip -selection c"
+        alias fromclip "xclip -selection clipboard -o"
+    end
 
-alias btctl "bluetoothctl"
+    if type -q bluetoothctl
+        alias btctl "bluetoothctl"
+    end
 
-alias decToHex "printf '0x%x\n'"
-alias hexToDec "printf '%d\n'"
+    alias decToHex "printf '0x%x\n'"
+    alias hexToDec "printf '%d\n'"
 
-function posix-source
-    sed -re 's/export (.*)=(.*)/set -x \1 \2/g' -e 's/(.*)=(.*)/set \1 \2/g' $argv[1] 
+    # Convert bash-style env to fish
+    function posix-source
+        sed -re 's/export (.*)=(.*)/set -x \1 \2/g' -e 's/(.*)=(.*)/set \1 \2/g' $argv[1] 
+    end
+
 end
 
 # env
@@ -50,4 +56,5 @@ set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 # the following to ~/.config/fish/config.fish:
 
 pyenv init - | source
+#Pyenv end
 
